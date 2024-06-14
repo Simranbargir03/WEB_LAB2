@@ -1,0 +1,76 @@
+iddlewares in Express.js as per your experiment objectives, let's create a simple Node.js application using Express that incorporates two middleware functions: myLogger and requestTime. These middleware functions will showcase different aspects of middleware in Express.
+
+Step-by-Step Example
+Setting Up the Project:
+
+Create a new folder named expressmiddleware.
+Navigate to this folder in your terminal or command prompt.
+Initialize a new Node.js project by running npm init and follow the prompts to create a package.json file.
+Install Express:
+
+Install Express.js using npm:
+Copy code
+npm install express
+Create index.js File:
+
+Create a file named index.js in the expressmiddleware folder.
+Implement Middleware Functions and Express App:
+
+javascript
+Copy code
+// index.js
+
+// Importing required modules
+const express = require('express');
+const app = express();
+
+// Middleware function: myLogger
+const myLogger = function (req, res, next) {
+  console.log('LOGGED');
+  next(); // Pass control to the next middleware function
+};
+
+// Middleware function: requestTime
+const requestTime = function (req, res, next) {
+  req.requestTime = Date.now(); // Adding requestTime property to req object
+  next(); // Pass control to the next middleware function
+};
+
+// Registering middlewares with Express app
+app.use(myLogger);
+app.use(requestTime);
+
+// Route handler for GET request to '/'
+app.get('/', (req, res) => {
+  let responseText = 'Hello World!<br>';
+  responseText += `<small>Requested at: ${new Date(req.requestTime).toLocaleString()}</small>`;
+  res.send(responseText);
+});
+
+// Route handler for POST request to '/'
+app.post('/', (req, res) => {
+  res.send('Received a POST request');
+});
+
+// Starting the server
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+Explanation of Code:
+
+Middleware Functions (myLogger and requestTime):
+myLogger: This middleware simply logs 'LOGGED' to the console every time a request is made to the server. It then calls next() to pass control to the next middleware in the stack.
+requestTime: This middleware adds a requestTime property to the req object with the current timestamp (in milliseconds since Unix epoch). It also calls next() to pass control to the next middleware.
+Express App Setup:
+app.use(myLogger);: Registers myLogger middleware globally for all routes.
+app.use(requestTime);: Registers requestTime middleware globally for all routes.
+app.get('/', ...) and app.post('/', ...): Defines route handlers for GET and POST requests to the root path (/). These handlers demonstrate how to use middleware-modified req properties (requestTime) in the route handler.
+Route Handlers:
+app.get('/', ...): Sends a response containing 'Hello World!' and displays the timestamp of the request using req.requestTime.
+app.post('/', ...): Sends a simple response indicating that a POST request was received.
+Testing with Postman:
+
+Open Postman application.
+Send GET and POST requests to http://localhost:3000.
+Verify that the server responds correctly with the expected messages.

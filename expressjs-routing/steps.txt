@@ -1,0 +1,48 @@
+mkdir expressjs-routing
+cd expressjs-routing
+npm init -y
+npm install express
+Add the following code to index.js to set up routing and start the server:
+const express = require('express');
+const app = express();
+
+// Route for GET request on the homepage
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+// Route for POST request on the root route
+app.post('/', (req, res) => {
+  res.send('Got a POST request');
+});
+
+// Route for PUT request to the /user route
+app.put('/user', (req, res) => {
+  res.send('Got a PUT request at /user');
+});
+
+// Route for DELETE request to the /user route
+app.delete('/user', (req, res) => {
+  res.send('Got a DELETE request at /user');
+});
+
+// Route with route parameters
+app.get('/users/:userId/books/:bookId', (req, res) => {
+  res.send(req.params);
+});
+
+// Route with regular expressions in route parameters
+app.get('/user/:userId(\\d+)', (req, res) => {
+  res.send(req.params);
+});
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+Run the Server
+
+Save the index.js file.
+In your terminal, run the following command to start the server:
+
+node index.js

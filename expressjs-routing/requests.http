@@ -1,0 +1,17 @@
+### GET request to the homepage
+GET http://localhost:3000 HTTP/1.1
+
+### POST request to the root route
+POST http://localhost:3000 HTTP/1.1
+
+### PUT request to the /user route
+PUT http://localhost:3000/user HTTP/1.1
+
+### DELETE request to the /user route
+DELETE http://localhost:3000/user HTTP/1.1
+
+### GET request with route parameters
+GET http://localhost:3000/users/34/books/8989 HTTP/1.1
+
+### GET request with regular expression in route parameters
+GET http://localhost:3000/user/42 HTTP/1.1
